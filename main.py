@@ -1,7 +1,10 @@
 
-import weather
+import weather 
+import wardrobe
 
-data = weather.weather("Halifax","CA")
+# data = weather.weather("Halifax","CA")
 
 
-print (data.parse_data() )
+# suggestion = wardrobe.wardrobe(data.parse_data())
+
+# suggestion.get_stuff()

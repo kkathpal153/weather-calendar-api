@@ -1,5 +1,8 @@
-import requests
-import json
+try:
+    import json
+    import requests
+except ImportError as error:
+        print(error.__class__.__name__ + ": " + str(error))
 
 
 class weather:
@@ -22,7 +25,7 @@ class weather:
 
     def parse_data(self):
 
-        self.request()
+        self.request(self.api_key)
         
         re = json.loads(self.resp.content)
 
@@ -32,11 +35,11 @@ class weather:
             # print (r['dt_txt'])
             if(r['dt_txt'][11:13]=="06" or r['dt_txt'][11:13]=="12"):
                 if (self.temp_lists.get(r['dt_txt'][8:10])==None):
-                    self.temp_lists[r['dt_txt'][8:10]] = r
-                elif(self.temp_lists.get(r['dt_txt'][8:10])!=None):
-                    list = []
-                    list.append(self.temp_lists[r['dt_txt'][8:10]])
+                    list =[]
                     list.append(r)
                     self.temp_lists[r['dt_txt'][8:10]] = list
+                    
+                elif(self.temp_lists.get(r['dt_txt'][8:10])!=None):
+                    self.temp_lists[r['dt_txt'][8:10]].append(r)
 
         return self.temp_lists
